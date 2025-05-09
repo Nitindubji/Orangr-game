@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orange Challenge Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff9800, #ffc107);
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: 0 auto 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    button {
+      padding: 10px 20px;
+      background: #ff6f00;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #e65100;
+    }
+    textarea, input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Orange Challenge Game</h1>
+  <div class="card" id="challengeCard">
+    <p id="challengeText">Click below to see a challenge!</p>
+    <button onclick="showChallenge()">Accept a Random Challenge</button>
+  </div>
+
+  <div class="card" id="newChallengeCard">
+    <h3>Pass on the Challenge!</h3>
+    <input type="text" id="nameInput" placeholder="Your SIGN name" />
+    <textarea id="newChallenge" rows="3" placeholder="Write your challenge here..."></textarea>
+    <button onclick="submitChallenge()">Submit</button>
+  </div>
+
+  <script>
+    const challenges = [
+      "Do 10 push-ups.",
+      "Say something nice to someone today.",
+      "Dance for 1 minute.",
+      "Draw a quick self-portrait.",
+      "Meditate for 2 minutes.",
+      "Take a deep breath and smile!"
+    ];
+
+    function showChallenge() {
+      const index = Math.floor(Math.random() * challenges.length);
+      document.getElementById("challengeText").innerText = challenges[index];
+    }
+
+    function submitChallenge() {
+      const name = document.getElementById("nameInput").value.trim();
+      const newCh = document.getElementById("newChallenge").value.trim();
+      if (!name || !newCh) {
+        alert("Please enter your name and a challenge.");
+        return;
+      }
+      challenges.push(`${newCh} — from ${name}`);
+      alert("Challenge submitted! It will appear for the next SIGN.");
+      document.getElementById("nameInput").value = "";
+      document.getElementById("newChallenge").value = "";
+    }
+  </script>
+</body>
+</html>
