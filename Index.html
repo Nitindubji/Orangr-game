@@ -2,56 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIGN Orange Challenge Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIGN Orange Challenge</title>
   <style>
+    :root {
+      --orange: #ff9800;
+      --orange-dark: #ef6c00;
+      --bg: #fff8f1;
+      --text: #333;
+      --card-bg: white;
+      --border: #ffcc80;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #ff6f00, #ffa726);
-      color: #fff;
+      margin: 0;
+      padding: 2rem;
+      background: var(--bg);
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
       text-align: center;
-      padding: 20px;
     }
-    .button {
-      background-color: #ff9800;
-      border: none;
-      padding: 10px 20px;
+    h1 {
+      color: var(--orange-dark);
+      margin-bottom: 0.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    button {
+      background: var(--orange);
       color: white;
-      font-weight: bold;
-      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 1rem;
       cursor: pointer;
+      margin-top: 1rem;
     }
-    .button:hover {
-      background-color: #fb8c00;
+    button:hover {
+      background: var(--orange-dark);
+    }
+    textarea, input {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .small {
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the SIGN Orange Challenge!</h1>
-  <p>Challenge yourself and others to become the best version of you.</p>
-  <button class="button" onclick="startChallenge()">Start Challenge</button>
-  
-  <div id="challengeSection" style="display:none;">
+  <h1>SIGN Orange Challenge</h1>
+  <p class="small">Unleash your best self. Accept the challenge. Pass it forward.</p>
+
+  <button onclick="startChallenge()">Start a Challenge</button>
+
+  <div id="challengeCard" class="card hidden">
     <h2>Your Challenge</h2>
-    <p>Write your challenge and pass it to the next person!</p>
-    <textarea id="challengeInput" rows="4" placeholder="Write your challenge..."></textarea>
-    <br/>
-    <button class="button" onclick="submitChallenge()">Submit Challenge</button>
+    <p id="challengeText" style="font-weight: bold;"></p>
+
+    <h3 style="margin-top: 2rem;">Create Your Own Challenge</h3>
+    <input type="text" id="nameInput" placeholder="Your SIGN Name" />
+    <textarea id="newChallengeInput" placeholder="Write a powerful challenge to inspire the next SIGN..."></textarea>
+    <button onclick="submitChallenge()">Submit Challenge</button>
   </div>
 
   <script>
+    const challenges = [
+      "Record a 30-sec video saying your biggest dream and post it.",
+      "Write a thread about your personal growth in the past year.",
+      "Create an orange-themed art or meme and tag #OrangeDynasty.",
+      "Share one fear you overcame this week in SIGN Telegram.",
+      "Send a voice note of encouragement to someone in the community.",
+      "Journal about how you're becoming the best version of yourself.",
+      "Host a Twitter Space on your favorite topic for 10 minutes.",
+      "Teach one person what SIGN means to you."
+    ];
+
     function startChallenge() {
-      document.getElementById('challengeSection').style.display = 'block';
+      const random = challenges[Math.floor(Math.random() * challenges.length)];
+      document.getElementById('challengeText').innerText = random;
+      document.getElementById('challengeCard').classList.remove('hidden');
     }
 
     function submitChallenge() {
-      const challengeText = document.getElementById('challengeInput').value;
-      if (challengeText.trim() === "") {
-        alert("Please write a challenge!");
+      const name = document.getElementById('nameInput').value.trim();
+      const newChallenge = document.getElementById('newChallengeInput').value.trim();
+
+      if (!name || !newChallenge) {
+        alert("Please fill in your name and challenge.");
         return;
       }
-      alert("Challenge submitted! The next person will accept it.");
-      document.getElementById('challengeInput').value = "";
+
+      alert(`Thank you, ${name}! Your challenge has been passed on.`);
+      document.getElementById('nameInput').value = "";
+      document.getElementById('newChallengeInput').value = "";
     }
   </script>
 </body>
